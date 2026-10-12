@@ -3,6 +3,8 @@ mode: how-to
 ---
 # Kawaii LifeHash Avatar
 
+Made by [Anuna Research](https://anuna.io).
+
 Turn an input string into a deterministic avatar: the same string and recipe version produce the same shape, colors, and traits. Changing its expression does not change its identity.
 
 Six locally drawn silhouettes, nine silent presentation states, and a complete square LifeHash version2 fingerprint. Generation stays in the browser; no framework runtime is required.
@@ -28,7 +30,7 @@ The SDK accepts primitive strings, including Unicode control characters such as 
 <lifehash-avatar seed="user:42" state="idle" size="128"></lifehash-avatar>
 ```
 
-For a shared link, pass the URL-encoded string as [`?seed=`](https://kawaii-lifehash.pages.dev/?seed=user%3A42), or use the demo's **Copy avatar link** button.
+For a shared link, pass the URL-encoded string as [`?seed=`](https://kawaii-lifehash.anuna.io/?seed=user%3A42), or use the demo's **Copy avatar link** button.
 
 ## Example avatars
 
@@ -104,10 +106,10 @@ Open the local URL printed by Vite. Type a seed, change the mood, and download t
 
 Pass a string as the `seed` query parameter to prefill the input and render its avatar:
 
-[Render researcher:42](https://kawaii-lifehash.pages.dev/?seed=researcher%3A42)
+[Render researcher:42](https://kawaii-lifehash.anuna.io/?seed=researcher%3A42)
 
 ```ts
-const url = new URL('https://kawaii-lifehash.pages.dev/');
+const url = new URL('https://kawaii-lifehash.anuna.io/');
 url.searchParams.set('seed', 'hello world 😀');
 ```
 
@@ -132,7 +134,7 @@ The root imports safely during SSR and does not register an element. Generation 
 
 ## Web Component SDK example
 
-The [live demo](https://kawaii-lifehash.pages.dev/#sdk-title) includes highlighted HTML and JavaScript examples. Its markup updates as you change the seed or expression.
+The [live demo](https://kawaii-lifehash.anuna.io/#sdk-title) includes highlighted HTML and JavaScript examples. Its markup updates as you change the seed or expression.
 
 After installing the local package, import the component and styles once in your browser app:
 

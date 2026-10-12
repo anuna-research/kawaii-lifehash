@@ -1,0 +1,28 @@
+Explanation for +D completed(local-deliverable)
+This was proven using only strict rules and facts (cannot be defeated).
+
+Derivation:
+  1. "completed(local-deliverable)" was derived strictly
+     Using strict rule: r-delivered
+     Prerequisites:
+       1. "completed(generator)" was derived strictly
+          Using strict rule: r-complete-generator
+          Prerequisites:
+            1. "verified(generator)" was established as a fact
+               Using fact: f29
+       1. "completed(component)" was derived strictly
+          Using strict rule: r-complete-component
+          Prerequisites:
+            1. "verified(component)" was established as a fact
+               Using fact: f30
+       1. "completed(distribution)" was derived strictly
+          Using strict rule: r-complete-distribution
+          Prerequisites:
+            1. "verified(distribution)" was established as a fact
+               Using fact: f31
+       1. "completed(verification)" was derived strictly
+          Using strict rule: r-complete-verification
+          Prerequisites:
+            1. "verified(verification)" was established as a fact
+               Using fact: f32
+

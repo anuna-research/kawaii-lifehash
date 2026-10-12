@@ -1,0 +1,66 @@
+
+> kawaii-lifehash@0.1.0 test
+> npm run build && node scripts/reference.mjs && playwright test
+
+
+> kawaii-lifehash@0.1.0 build
+> node scripts/build.mjs
+
+[2m[WebServer] [22m(node:47701) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 51 tests using 5 workers
+
+  ✓   4 [chromium] › tests/component.spec.ts:24:1 › TEST-008: engine failure is observable without unhandled rejection (730ms)
+  ✓   2 [chromium] › tests/component.spec.ts:29:1 › TEST-009: generation performs no network request or audible/microphone action (745ms)
+  ✓   5 [chromium] › tests/component.spec.ts:3:1 › TEST-008: state, independent instances, reconnect, export and input failures (747ms)
+  ✓   3 [chromium] › tests/component.spec.ts:35:1 › TEST-014: reduced motion disables decorative animations and pointer response (752ms)
+  ✓   1 [chromium] › tests/component.spec.ts:14:1 › TEST-008: newest seed wins deliberately reordered generation and pending state survives (771ms)
+  ✓   6 [chromium] › tests/component.spec.ts:40:1 › TEST-008: malformed global label cannot strand readiness (348ms)
+  ✓  10 [chromium] › tests/component.spec.ts:58:1 › TEST-014: idle blinks close and reopen without altering pupil tracking (354ms)
+  ✓   7 [chromium] › tests/component.spec.ts:45:1 › TEST-008: render failures settle readiness and emit a failure signal (399ms)
+  ✓   8 [chromium] › tests/component.spec.ts:50:1 › TEST-008/014: pupils follow page cursor outside the avatar and release tracking on disconnect (401ms)
+  ✓   9 [chromium] › tests/component.spec.ts:54:1 › TEST-008: distinct expressions retain eye geometry, pupil gaze, identity and neutral export (403ms)
+  ✓  13 [chromium] › tests/generator.spec.ts:13:1 › TEST-005/006/010: deterministic, validated and neutral portable SVG (308ms)
+  ✓  12 [chromium] › tests/generator.spec.ts:3:1 › TEST-003: exact scalar input digest and invalid strings (325ms)
+  ✓  15 [chromium] › tests/generator.spec.ts:25:1 › TEST-010: standalone SVG image has transparent exterior and a visible texture (326ms)
+  ✓  11 [chromium] › tests/demo.spec.ts:2:1 › TEST-014: keyboard controls, error announcement, download and responsive layout (543ms)
+  ✓  16 [chromium] › tests/generator.spec.ts:29:1 › TEST-006/010: labels remain XML and malformed or mismatched fingerprints fail (222ms)
+  ✓  14 [chromium] › tests/generator.spec.ts:17:1 › TEST-004: independently invoked canonical C++ pixels (601ms)
+  ✓  17 [chromium] › tests/generator.spec.ts:37:1 › TEST-004/005: decoded full square pixels and reload repeatability (340ms)
+  ✓  18 [firefox] › tests/component.spec.ts:3:1 › TEST-008: state, independent instances, reconnect, export and input failures (1.8s)
+  ✓  22 [firefox] › tests/component.spec.ts:35:1 › TEST-014: reduced motion disables decorative animations and pointer response (1.7s)
+  ✓  20 [firefox] › tests/component.spec.ts:24:1 › TEST-008: engine failure is observable without unhandled rejection (1.9s)
+  ✓  23 [firefox] › tests/component.spec.ts:40:1 › TEST-008: malformed global label cannot strand readiness (1.2s)
+  ✓  24 [firefox] › tests/component.spec.ts:45:1 › TEST-008: render failures settle readiness and emit a failure signal (1.1s)
+  ✓  21 [firefox] › tests/component.spec.ts:29:1 › TEST-009: generation performs no network request or audible/microphone action (2.1s)
+  ✓  25 [firefox] › tests/component.spec.ts:50:1 › TEST-008/014: pupils follow page cursor outside the avatar and release tracking on disconnect (1.2s)
+  ✓  19 [firefox] › tests/component.spec.ts:14:1 › TEST-008: newest seed wins deliberately reordered generation and pending state survives (2.1s)
+  ✓  26 [firefox] › tests/component.spec.ts:54:1 › TEST-008: distinct expressions retain eye geometry, pupil gaze, identity and neutral export (977ms)
+  ✓  27 [firefox] › tests/component.spec.ts:58:1 › TEST-014: idle blinks close and reopen without altering pupil tracking (902ms)
+  ✓  28 [firefox] › tests/demo.spec.ts:2:1 › TEST-014: keyboard controls, error announcement, download and responsive layout (1.3s)
+  ✓  30 [firefox] › tests/generator.spec.ts:13:1 › TEST-005/006/010: deterministic, validated and neutral portable SVG (791ms)
+  ✓  29 [firefox] › tests/generator.spec.ts:3:1 › TEST-003: exact scalar input digest and invalid strings (955ms)
+  ✓  32 [firefox] › tests/generator.spec.ts:25:1 › TEST-010: standalone SVG image has transparent exterior and a visible texture (805ms)
+  ✓  31 [firefox] › tests/generator.spec.ts:17:1 › TEST-004: independently invoked canonical C++ pixels (1.1s)
+  ✓  33 [firefox] › tests/generator.spec.ts:29:1 › TEST-006/010: labels remain XML and malformed or mismatched fingerprints fail (744ms)
+  ✓  34 [firefox] › tests/generator.spec.ts:37:1 › TEST-004/005: decoded full square pixels and reload repeatability (1.5s)
+  ✓  36 [webkit] › tests/component.spec.ts:14:1 › TEST-008: newest seed wins deliberately reordered generation and pending state survives (1.3s)
+  ✓  35 [webkit] › tests/component.spec.ts:3:1 › TEST-008: state, independent instances, reconnect, export and input failures (1.4s)
+  ✓  37 [webkit] › tests/component.spec.ts:24:1 › TEST-008: engine failure is observable without unhandled rejection (1.0s)
+  ✓  38 [webkit] › tests/component.spec.ts:29:1 › TEST-009: generation performs no network request or audible/microphone action (1.0s)
+  ✓  39 [webkit] › tests/component.spec.ts:40:1 › TEST-008: malformed global label cannot strand readiness (824ms)
+  ✓  40 [webkit] › tests/component.spec.ts:45:1 › TEST-008: render failures settle readiness and emit a failure signal (813ms)
+  ✓  41 [webkit] › tests/component.spec.ts:50:1 › TEST-008/014: pupils follow page cursor outside the avatar and release tracking on disconnect (781ms)
+  ✓  42 [webkit] › tests/component.spec.ts:54:1 › TEST-008: distinct expressions retain eye geometry, pupil gaze, identity and neutral export (789ms)
+  ✓  43 [webkit] › tests/component.spec.ts:58:1 › TEST-014: idle blinks close and reopen without altering pupil tracking (578ms)
+  ✓  45 [webkit] › tests/generator.spec.ts:3:1 › TEST-003: exact scalar input digest and invalid strings (518ms)
+  ✓  46 [webkit] › tests/generator.spec.ts:13:1 › TEST-005/006/010: deterministic, validated and neutral portable SVG (429ms)
+  ✓  44 [webkit] › tests/demo.spec.ts:2:1 › TEST-014: keyboard controls, error announcement, download and responsive layout (777ms)
+  ✓  48 [webkit] › tests/generator.spec.ts:25:1 › TEST-010: standalone SVG image has transparent exterior and a visible texture (527ms)
+  ✓  49 [webkit] › tests/generator.spec.ts:29:1 › TEST-006/010: labels remain XML and malformed or mismatched fingerprints fail (441ms)
+  ✓  47 [webkit] › tests/generator.spec.ts:17:1 › TEST-004: independently invoked canonical C++ pixels (736ms)
+  ✓  50 [webkit] › tests/generator.spec.ts:37:1 › TEST-004/005: decoded full square pixels and reload repeatability (727ms)
+  ✓  51 [webkit] › tests/component.spec.ts:35:1 › TEST-014: reduced motion disables decorative animations and pointer response (534ms)
+
+  51 passed (13.9s)

@@ -1,0 +1,10 @@
+Explanation for +D completed(soft-error-textured-edge)
+This was proven using only strict rules and facts (cannot be defeated).
+
+Derivation:
+  1. "completed(soft-error-textured-edge)" was derived strictly
+     Using strict rule: r-complete-soft-error-textured-edge
+     Prerequisites:
+       1. "verified(soft-error-textured-edge)" was established as a fact
+          Using fact: f56
+

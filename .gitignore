@@ -1,0 +1,11 @@
+node_modules/
+dist/
+demo-dist/
+test-results/
+playwright-report/
+src/wasm.ts
+vendor/**/.git/
+evidence/reference-renderer
+.DS_Store
+artifacts/
+.zetl/

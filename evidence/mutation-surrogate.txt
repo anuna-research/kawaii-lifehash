@@ -1,0 +1,28 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › tests/generator.spec.ts:3:1 › TEST-003: exact scalar input digest and invalid strings (674ms)
+
+
+  1) [chromium] › tests/generator.spec.ts:3:1 › TEST-003: exact scalar input digest and invalid strings 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mfalse[39m
+
+       9 |  const errors=[];for(const s of [null,42,{},'\ud800','\udc00']){try{await generateAvatar(s as any);errors.push(false)}catch{errors.push(true)}}
+      10 |  return {pairs,errors};});
+    > 11 |  expect(result.pairs.every(([a,b])=>a===b)).toBe(true);expect(result.errors.every(Boolean)).toBe(true);expect(result.pairs[4][0]).not.toBe(result.pairs[5][0]);
+         |                                                                                             ^
+      12 | });
+      13 | test('TEST-005/006/010: deterministic, validated and neutral portable SVG',async({page})=>{
+      14 |  const r=await page.evaluate(async()=>{const m=await import('/dist/index.js');const a=await m.generateAvatar('researcher:42');const b=await m.generateAvatar('researcher:42');const svg=m.avatarSVG(a,{label:'<script>&"'});const errors=[];for(const o of [{size:NaN},{size:0},{shape:'<svg>'},{other:1},{label:'\ud800'}]){try{m.avatarSVG(a,o as any);errors.push(false)}catch{errors.push(true)}}for(const i of [{...a,recipe:'bad'},{...a,digest:'invalid'},{...a,traits:{...a.traits,shape:'script'}},{...a,fingerprint:{...a.fingerprint,pixels:[-1]}}]){try{m.avatarSVG(i as any);errors.push(false)}catch{errors.push(true)}}return {same:JSON.stringify(a)===JSON.stringify(b),svg,repeat:svg===m.avatarSVG(b,{label:'<script>&"'}),errors};});
+        at /Users/anuna-01/Code/kawaii-lifehash-avatar/tests/generator.spec.ts:11:93
+
+    Error Context: test-results/generator-TEST-003-exact-s-33e7c--digest-and-invalid-strings-chromium/error-context.md
+
+  1 failed
+    [chromium] › tests/generator.spec.ts:3:1 › TEST-003: exact scalar input digest and invalid strings 
+[2m[WebServer] [22m(node:6538) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)

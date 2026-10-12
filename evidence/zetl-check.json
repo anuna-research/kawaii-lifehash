@@ -1,0 +1,141 @@
+{
+  "dead_links": [],
+  "orphans": [
+    {
+      "page": "LICENSE",
+      "forward_links": 0
+    },
+    {
+      "page": "bc-lifehash-LICENSE",
+      "forward_links": 0
+    },
+    {
+      "page": "facial-animation-review",
+      "forward_links": 10
+    },
+    {
+      "page": "irregular-edge",
+      "forward_links": 1
+    },
+    {
+      "page": "reference-refinement",
+      "forward_links": 3
+    },
+    {
+      "page": "soft-error-edge",
+      "forward_links": 1
+    },
+    {
+      "page": "stable-coat",
+      "forward_links": 1
+    },
+    {
+      "page": "visual-changes",
+      "forward_links": 6
+    }
+  ],
+  "syntax_errors": [],
+  "spl_diagnostics": [
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(facial-animation)' in rule 'r-complete-facial-animation' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 51,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(component)' in rule 'r-complete-component' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 21,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(generator)' in rule 'r-complete-generator' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 14,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(soft-error-textured-edge)' in rule 'r-complete-soft-error-textured-edge' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 65,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(reference-refinement)' in rule 'r-complete-reference-refinement' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 58,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(verification)' in rule 'r-complete-verification' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 35,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(contract)' in rule 'r-complete-contract' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 7,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(gentle-gaze-listening)' in rule 'r-complete-gentle-gaze-listening' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 79,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(stable-coat-animation)' in rule 'r-complete-stable-coat-animation' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 86,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(distribution)' in rule 'r-complete-distribution' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 28,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(irregular-edge)' in rule 'r-complete-irregular-edge' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 72,
+      "column": 0
+    },
+    {
+      "level": "Warning",
+      "message": "Body literal 'verified(visual-refinement)' in rule 'r-complete-visual-refinement' appears in no rule head or fact (possible typo)",
+      "file": "docs/plan.spl",
+      "line": 44,
+      "column": 0
+    }
+  ],
+  "drift_diagnostics": [],
+  "predicate_lints": [],
+  "summary": {
+    "dead_links": 0,
+    "orphans": 8,
+    "syntax_errors": 0,
+    "spl_errors": 0,
+    "drift_warnings": 0,
+    "drift_info": 0,
+    "total_spl_blocks": 1,
+    "drifted_blocks_warning": 0,
+    "drifted_blocks_info": 0,
+    "explicitly_grounded_facts": 0,
+    "broken_groundings": 0,
+    "predicate_errors": 0,
+    "predicate_warnings": 0
+  }
+}

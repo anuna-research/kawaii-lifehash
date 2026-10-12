@@ -1,0 +1,10 @@
+Explanation for +D completed(reference-refinement)
+This was proven using only strict rules and facts (cannot be defeated).
+
+Derivation:
+  1. "completed(reference-refinement)" was derived strictly
+     Using strict rule: r-complete-reference-refinement
+     Prerequisites:
+       1. "verified(reference-refinement)" was established as a fact
+          Using fact: f50
+

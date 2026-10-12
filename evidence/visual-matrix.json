@@ -1,0 +1,29 @@
+{
+  "sizes": [
+    64,
+    256
+  ],
+  "states": [
+    "idle",
+    "thinking",
+    "speaking",
+    "listening",
+    "success",
+    "error"
+  ],
+  "shapes": [
+    "pebble",
+    "droplet",
+    "capsule",
+    "bloom",
+    "comet"
+  ],
+  "coats": [
+    "black",
+    "white",
+    "mid-gray",
+    "checkerboard",
+    "LifeHash"
+  ],
+  "method": "Deterministic paused animation extrema with normal motion enabled; live shadow artwork coat replaced with worst-case test texture only; no production identity mutation. All state transforms retained. Separate standalone neutral exports rendered as images."
+}

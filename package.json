@@ -1,0 +1,39 @@
+{
+  "name": "kawaii-lifehash",
+  "version": "0.1.0",
+  "description": "Independent deterministic LifeHash companions for the browser",
+  "type": "module",
+  "license": "Apache-2.0",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "import": "./dist/component.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "NOTICE.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "build:demo": "npm run build && vite build",
+    "test": "npm run build && node scripts/reference.mjs && playwright test",
+    "typecheck": "tsc --noEmit",
+    "pack:local": "npm run build && npm pack --pack-destination artifacts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "highlight.js": "11.12.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.7"
+  }
+}

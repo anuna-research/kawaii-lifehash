@@ -1,0 +1,7 @@
+active  predicate  completed/1                  head,body  — task is finished (given fact; lifecycle terminal)  [built-in]
+active  predicate  no-deps/1                    fact,body  — task has no dependencies (readiness root)  [built-in]
+active  predicate  ready/1                      head  — task's dependencies are met; it may be claimed  [built-in]
+orphan  predicate  task-acceptance/2            fact  — Test-derived acceptance
+orphan  predicate  task-description/2           fact  — Documented task
+active  predicate  task/1                       fact,body  — declared unit of work (legacy hence lifecycle)  [built-in]
+active  predicate  verified/1                   body  — evidence a task's work is verified (RECOMMENDED evidence-rule conclusion)  [built-in]

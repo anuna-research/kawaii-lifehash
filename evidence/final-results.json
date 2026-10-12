@@ -1,0 +1,103 @@
+{
+  "browser": {
+    "startTime": "2026-10-12T01:16:56.763Z",
+    "duration": 12390.34,
+    "expected": 51,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browsers": [
+    "chromium",
+    "firefox",
+    "webkit"
+  ],
+  "consumer": [
+    {
+      "command": [
+        "npm",
+        "install",
+        "--ignore-scripts",
+        "/Users/anuna-01/Code/kawaii-lifehash-avatar/artifacts/kawaii-lifehash-0.1.0.tgz"
+      ],
+      "output": "\nadded 1 package, and audited 2 packages in 380ms\n\nfound 0 vulnerabilities\n"
+    },
+    {
+      "command": [
+        "node",
+        "--input-type=module",
+        "-e",
+        "const m=await import('kawaii-lifehash'); if(typeof m.generateAvatar!=='function'||globalThis.customElements)throw Error('SSR boundary'); console.log('SSR import succeeded');"
+      ],
+      "output": "SSR import succeeded\n"
+    },
+    {
+      "command": [
+        "node",
+        "/Users/anuna-01/Code/kawaii-lifehash-avatar/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2022",
+        "typecheck.ts"
+      ],
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "/Users/anuna-01/Code/kawaii-lifehash-avatar/node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "output": "vite v7.3.7 building client environment for production...\ntransforming...\n\u2713 10 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                       0.31 kB \u2502 gzip:  0.23 kB\ndist/assets/lifehash-D633fb7a.wasm   64.57 kB \u2502 gzip: 23.75 kB\ndist/assets/index-DmLtWm0E.css        0.13 kB \u2502 gzip:  0.12 kB\ndist/assets/lifehash-56gAvfVy.js     14.18 kB \u2502 gzip:  4.74 kB\ndist/assets/index-Cz8AP_n_.js       106.88 kB \u2502 gzip: 41.83 kB\n\u2713 built in 90ms\n"
+    },
+    {
+      "result": "Fresh install, all entry declarations, SSR, development, nested production, offline generation and cross-browser pixels/traits passed.",
+      "browsers": [
+        {
+          "name": "chromium",
+          "digest": "835e8a6f860672079698ffd34500d1458bf88b6da32ccaff07d3882c652901b1",
+          "traits": {
+            "shape": "droplet",
+            "eyes": "crescent",
+            "edge": "smooth",
+            "cheeks": 0
+          }
+        },
+        {
+          "name": "firefox",
+          "digest": "835e8a6f860672079698ffd34500d1458bf88b6da32ccaff07d3882c652901b1",
+          "traits": {
+            "shape": "droplet",
+            "eyes": "crescent",
+            "edge": "smooth",
+            "cheeks": 0
+          }
+        },
+        {
+          "name": "webkit",
+          "digest": "835e8a6f860672079698ffd34500d1458bf88b6da32ccaff07d3882c652901b1",
+          "traits": {
+            "shape": "droplet",
+            "eyes": "crescent",
+            "edge": "smooth",
+            "cheeks": 0
+          }
+        }
+      ]
+    }
+  ],
+  "audit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "refinement": "Single lossless embedded coat image, fractional motion review in all3 browsers, and nine deterministic cheek tints."
+}

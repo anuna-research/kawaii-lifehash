@@ -1,0 +1,7 @@
+# Stable coat during motion
+
+The owner reported that the LifeHash grid flashes during avatar animation. The previous coat contained many adjacent SVG rectangles under scale/rotation. Their independently rasterized boundaries could expose a transient grid. The coat now renders as one embedded lossless 32×32 RGBA PNG, retaining exact fingerprint bytes with a continuous raster surface. The silhouette union/filter and face remain separate, and the whole companion requests transform compositing.
+
+The PNG encoder uses deterministic stored DEFLATE blocks, PNG CRC and Adler checksums. It has no external dependencies, canvas initialization or network access. The canonical full fingerprint SVG is unchanged. Cross-browser decoding checks compare embedded PNG bytes with all4096 fingerprint bytes and confirm reload repeatability; standalone SVG rendering, animation/reduced-motion checks and fresh package checks remain required. Visual fixtures now use the same single-image coat path. See [[stable-coat-review]] for independent review.
+
+The owner also requested variation in cheek highlight color. The three existing cheek families now each have three soft tints, selected deterministically from digest byte4. This gives nine blush colors while preserving existing identity trait grammar and seed consistency. The tests, normal-motion visual matrix and local archive were refreshed after this palette change.

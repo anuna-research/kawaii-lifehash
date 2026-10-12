@@ -1,0 +1,39 @@
+{
+  "steps": [
+    {
+      "type": "navigate",
+      "url": "https://kawaii-lifehash.pages.dev/"
+    },
+    {
+      "offsetX": 1,
+      "offsetY": 1,
+      "selectors": [
+        [
+          "xpath///*[contains(text(), '✓ Success')]"
+        ]
+      ],
+      "type": "click"
+    },
+    {
+      "offsetX": 1,
+      "offsetY": 1,
+      "selectors": [
+        [
+          "xpath///*[contains(text(), '! Error')]"
+        ]
+      ],
+      "type": "click"
+    },
+    {
+      "offsetX": 1,
+      "offsetY": 1,
+      "selectors": [
+        [
+          "xpath///*[contains(text(), '✧ Thinking')]"
+        ]
+      ],
+      "type": "click"
+    }
+  ],
+  "title": "Session 2026-10-12 1200 - kawaii-lifehash.pages.dev"
+}

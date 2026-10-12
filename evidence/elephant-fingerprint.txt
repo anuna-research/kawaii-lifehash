@@ -1,0 +1,2 @@
+sha256:c379f2c4197764c39b8e6a093bc84c398647d9760a0e945cdb37fe428a9adbcc
+  algorithm elephant.closure.v1  (44 conclusions, excluding membership, local_aliases, theory_id, signers, timestamps)

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Conway texture studies</title>
+  <link rel="stylesheet" href="./preview.css">
+</head>
+<body>
+  <header>
+    <strong>Conway texture studies</strong>
+    <label>Pattern <select id="pattern"></select></label>
+    <label>Opacity <input id="opacity" type="range" min="0" max="100" step="1" value="35"><output id="opacity-value" for="opacity">35%</output></label>
+    <button id="theme" type="button">Light theme</button>
+    <button id="reseed" type="button">New seed</button>
+    <label>Seed <input id="seed" type="number" min="0" max="4294967295" step="1"></label>
+    <button id="toggle-content" type="button" aria-pressed="false">Texture only</button>
+  </header>
+  <main id="surface">
+    <section class="transcript" aria-label="Example conversation">
+      <div class="day"># design · texture studies</div>
+      <article><span class="avatar">a</span><div><strong>anuna</strong><p>A little texture behind the conversation.</p><p>Quiet enough to read through, with its own landscape each time.</p></div></article>
+      <article><span class="avatar">c</span><div><strong>companion</strong><p>Each pattern interprets the same accumulated Conway history.</p><p>Switch patterns to compare the same seed. Switch themes to keep the same geometry.</p></div></article>
+      <div class="composer">Message #design…</div>
+      <p class="note">Try 2–5% opacity for background use, or turn it up to inspect the shapes. The surface is static; New seed regenerates it.</p>
+    </section>
+  </main>
+  <script type="module" src="./preview.mjs"></script>
+</body>
+</html>

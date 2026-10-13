@@ -1,13 +1,15 @@
 ---
 mode: how-to
 ---
-# Kawaii LifeHash Avatar
+# Kawaii [LifeHash](https://lifehash.info/) Avatar
 
 Made by [Anuna Research](https://anuna.io).
 
 Turn an input string into a deterministic avatar: the same string and recipe version produce the same shape, colors, and traits. Changing its expression does not change its identity.
 
 Six locally drawn silhouettes, nine silent presentation states, and a complete square LifeHash version2 fingerprint. Generation stays in the browser; no framework runtime is required.
+
+Collect all 2²⁵⁶ of them!
 
 ## What strings can I use?
 
@@ -95,6 +97,10 @@ Set the expression with the component's `state` attribute:
 
 ## Run the local demo
 
+The demo focuses on identity and activity: change the seed, select an expression, compare the same companion at 24–256 px, and copy the component markup. The visible status label explains each expression. Names are carried in `data-name`; the component includes the name and activity in its accessible label and uses the name when exporting SVG.
+
+The audio prototype is preserved under `experiments/audio/` and in the optional source modules. Its interface and local speech endpoint are not part of the active demo. Archived tests are historical snapshots, not part of the current test suite.
+
 ```sh
 npm ci
 npm run dev
@@ -146,15 +152,50 @@ import 'kawaii-lifehash/styles.css';
 Then add the component to your HTML:
 
 ```html
-<lifehash-avatar seed="researcher:42" state="curious" size="128"
-  aria-label="Research companion"></lifehash-avatar>
+<lifehash-avatar seed="researcher:42" data-name="Momo"
+  state="curious" size="128"></lifehash-avatar>
 ```
 
 The avatar generates and displays itself automatically. Change `seed` to generate another identity, or `state` to change its expression. The default uses the six-shape family and soft coat.
 
-State values: `idle`, `thinking`, `speaking`, `listening`, `success`, `error`, `sleepy`, `curious`, `confused`. Speaking is silent. Reduced motion disables decorative animation and pointer response. Set `aria-hidden="true"` for decorative instances. A meaningful instance uses `aria-label` or its default character name.
+### Display name (`data-name`)
+
+`data-name` is an optional display-name attribute supplied by your application. It is used in the component's accessible label (for example, “Momo, Exploring”) and as the default label/title in `exportSVG()`. It does not render visible text inside the avatar; display it alongside the component when needed.
+
+```js
+const agent = document.querySelector('lifehash-avatar');
+console.log(agent.dataset.name); // 'Momo'
+agent.dataset.name = 'Pip'; // Updates the accessible label and future exports.
+document.querySelector('#agent-name').textContent = agent.dataset.name;
+```
+
+Changing `data-name` leaves the seed, appearance, digest and `identity.name` unchanged. It is not automatically regenerated when the seed changes; the demo generates kawaii names separately and assigns this attribute. If omitted, the component falls back to `identity.name`. An explicit `aria-label` overrides the accessible name portion, and `exportSVG({label: 'Custom label'})` overrides the export label.
+
+State values: `idle`, `thinking`, `speaking`, `listening`, `success`, `error`, `sleepy`, `curious`, `confused`. Speaking is silent. Reduced motion disables decorative animation and pointer response. Set `aria-hidden="true"` for decorative instances. The accessible label combines `aria-label`, `data-name`, or the default character name (in that order) with the current activity.
 
 `identity` is the last successfully resolved immutable identity. `status` is `pending`, `resolved`, or `failed`. `ready` represents the current generation; a new seed or disconnection rejects the earlier promise. `identity-resolved` carries the identity; `generation-error` carries `{kind, error}`, where kind distinguishes input from initialization. Invalid attributes or properties emit an input error and retain the last valid values. There is no unhandled rejection from declarative markup alone.
+
+### Connect a companion to actual work
+
+Use `seed` for stable identity, `data-name` for the display name, and `state` for activity. State changes preserve the identity and neutral SVG export. `STATE_LABELS` from `kawaii-lifehash/component` supplies readable activity labels; show a visible label alongside the face. The component also updates its SVG accessible name as the state changes. An explicit `aria-label` overrides the name portion; activity is still included.
+
+```js
+const agent = document.querySelector('lifehash-avatar');
+
+async function runWithAgent(task) {
+  agent.state = 'thinking';
+  try {
+    const result = await task();
+    agent.state = 'success';
+    return result;
+  } catch (error) {
+    agent.state = 'error';
+    throw error;
+  }
+}
+```
+
+Use `listening` when waiting for user input and `confused` when clarification is required. Expressions are presentation; the host application decides when work starts, finishes, or fails.
 
 ## Input and rendering rules
 

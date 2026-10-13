@@ -1,4 +1,17 @@
 import {test,expect} from '@playwright/test';
+test('data-name and activity labels work at small sizes without changing identity',async({page})=>{
+ await page.goto('/');
+ const result=await page.evaluate(async()=>{
+  const a=document.createElement('lifehash-avatar');a.seed='byte / builder';a.dataset.name='Momo';a.size=24;document.body.append(a);await a.ready;
+  const identity=a.identity,neutral=a.exportSVG();a.state='thinking';
+  const label=a.shadowRoot!.querySelector('svg')!.getAttribute('aria-label');
+  const same=a.identity===identity&&a.exportSVG()===neutral;
+  a.dataset.name='Custom companion';
+  const renamed=a.shadowRoot!.querySelector('svg')!.getAttribute('aria-label');
+  const width=a.getBoundingClientRect().width;a.remove();return {label,renamed,same,width,exportName:neutral.includes('Momo')};
+ });
+ expect(result).toEqual({label:'Momo, Working',renamed:'Custom companion, Working',same:true,width:24,exportName:true});
+});
 test.beforeEach(async({page})=>{await page.goto('/');await expect(page.locator('.friend')).toHaveCount(6);await expect(page.locator('#download')).toBeEnabled();await page.evaluate(()=>import('/dist/component.js'));});
 test('TEST-008: state, independent instances, reconnect, export and input failures',async({page})=>{
  const r=await page.evaluate(async()=>{

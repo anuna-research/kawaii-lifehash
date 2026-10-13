@@ -14,7 +14,9 @@
       "types": "./dist/component.d.ts",
       "import": "./dist/component.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./audio": {"types":"./dist/audio.d.ts","import":"./dist/audio.js"},
+    "./voice": {"types":"./dist/voice-addon.d.ts","import":"./dist/voice-addon.js"}
   },
   "files": [
     "dist",
@@ -26,6 +28,7 @@
     "build": "node scripts/build.mjs",
     "dev": "vite --host 127.0.0.1",
     "build:demo": "npm run build && vite build",
+    "deploy": "npm run build:demo && npx wrangler@4.149.0 pages deploy demo-dist --project-name kawaii-lifehash --branch main --commit-dirty=true",
     "test": "npm run build && node scripts/reference.mjs && playwright test",
     "typecheck": "tsc --noEmit",
     "pack:local": "npm run build && npm pack --pack-destination artifacts"

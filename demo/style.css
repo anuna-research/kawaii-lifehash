@@ -10,3 +10,7 @@
 .sdk-example{padding:16px 0 44px}.sdk-code{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px}.sdk-code>div{min-width:0}.sdk-code h3{font-size:12px;color:#636b88;font-weight:650}.sdk-code pre{margin:0;background:#252742;color:#eef0ff;border-radius:15px;padding:22px;overflow:auto;font:12px/1.7 ui-monospace,monospace}.sdk-hint{font-size:12px;color:#636b88;line-height:1.7}.sdk-hint code{color:#5142ad}@media(max-width:720px){.sdk-code{grid-template-columns:minmax(0,1fr)}.sdk-code pre{padding:18px;font-size:11px}}
 
 .sdk-code .hljs-keyword,.sdk-code .hljs-tag .hljs-name{color:#c6b0ff}.sdk-code .hljs-string{color:#a9e5c3}.sdk-code .hljs-attr,.sdk-code .hljs-title,.sdk-code .hljs-property{color:#a9d7ff}.sdk-code .hljs-number,.sdk-code .hljs-literal{color:#ffd3a4}.sdk-code .hljs-comment{color:#a8afc7}.sdk-code .hljs-built_in{color:#f2b6d5}
+
+.seed-field{display:flex;gap:8px;align-items:stretch}.seed-field input{flex:1}.seed-field button{flex:0 0 48px;border:1px solid #ccd3ed;border-radius:9px;background:#f5f7ff;color:#5142ad;font-size:25px}.seed-field button:hover{background:#e4e8ff}
+
+.activity-status{font:12px system-ui;color:#5142ad;background:#ffffffaa;border:1px solid #ccd3ed;border-radius:20px;padding:6px 12px;display:inline-block;margin:0 0 8px}

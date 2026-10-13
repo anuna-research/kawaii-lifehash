@@ -1,6 +1,7 @@
 import {generateAvatar,avatarSVG,recognizeSeed,recognizeSize,recognizeRecipe,RECIPE,type Recipe, type AvatarIdentity,type SVGOptions} from './index.js';
 export const STATES=['idle','thinking','speaking','listening','success','error','sleepy','curious','confused'] as const;
 export type AvatarState=typeof STATES[number];
+export const STATE_LABELS:Readonly<Record<AvatarState,string>>=Object.freeze({idle:'Ready',thinking:'Working',speaking:'Responding',listening:'Waiting for input',success:'Complete',error:'Failed',sleepy:'Inactive',curious:'Exploring',confused:'Needs clarification'});
 export interface GenerationFailure {kind:'input'|'initialization';error:Error}
 function recognizeState(value:unknown): asserts value is AvatarState {if(!STATES.includes(value as AvatarState))throw new TypeError('Unknown avatar state.');}
 const expressions:Record<AvatarState,{mouth:string;left:string;right:string;open:boolean}>={
@@ -61,11 +62,12 @@ svg{display:block;width:100%;height:100%;overflow:visible}
 @keyframes hop{45%{transform:translateY(-9px) rotate(2deg)}75%{transform:scale(1.025,.975)}}
 @keyframes glow{50%{opacity:.75;transform:scale(1.1)}}
 @keyframes puzzled{35%,65%{transform:rotate(-4deg)}100%{transform:rotate(0)}}
+:host([data-vocalizing]) .mouth{animation:none!important}
 :host([data-disconnected]) *{animation:none!important}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 `;
 export class LifeHashAvatar extends HTMLElement {
- static observedAttributes=['seed','state','size','recipe','aria-label','aria-hidden'];
+ static observedAttributes=['seed','state','size','recipe','data-name','aria-label','aria-hidden'];
  #recipe:Recipe=RECIPE;#seed='';#state:AvatarState='idle';#size=256;#identity:AvatarIdentity|null=null;#status:'pending'|'resolved'|'failed'='pending';
  #sequence=0;#reject:((error:Error)=>void)|undefined;#ready:Promise<AvatarIdentity>;#restore=false;
  #media:MediaQueryList|null=null;#reduced=false;
@@ -76,11 +78,21 @@ export class LifeHashAvatar extends HTMLElement {
  get state(){return this.#state} set state(value:AvatarState){this.#input('state',value);}
  get size(){return this.#size} set size(value:number){this.#input('size',value);}
  get identity(){return this.#identity} get ready(){return this.#ready} get status(){return this.#status}
+ /** Transient mouth movement for externally synthesized audio. Zero restores the expression. */
+ setAudioLevel(value:number){
+  if(!Number.isFinite(value))throw new TypeError('Audio level must be finite.');
+  const level=Math.max(0,Math.min(1,value));
+  if(!level||this.#reduced){this.removeAttribute('data-vocalizing');this.#presentation();return;}
+  this.setAttribute('data-vocalizing','');
+  const opening=2+level*10;
+  for(const path of this.#root.querySelectorAll('.mouth > path'))path.setAttribute('d',`M122 153 C122 ${153-opening} 134 ${153-opening} 134 153 C134 ${153+opening} 122 ${153+opening} 122 153Z`);
+  this.#root.querySelectorAll('.mouth > path')[1]?.setAttribute('fill','#292537');
+ }
  connectedCallback(){this.removeAttribute('data-disconnected');this.#media=matchMedia('(prefers-reduced-motion: reduce)');this.#reduced=this.#media.matches;this.#media.addEventListener('change',this.#motion);this.ownerDocument.addEventListener('pointermove',this.#pointer,{passive:true});this.ownerDocument.addEventListener('pointerleave',this.#leave);this.#render();this.#generate();}
  disconnectedCallback(){this.setAttribute('data-disconnected','');this.#sequence++;this.#reject?.(new Error('Avatar disconnected.'));this.#reject=undefined;this.#media?.removeEventListener('change',this.#motion);this.#media=null;this.ownerDocument.removeEventListener('pointermove',this.#pointer);this.ownerDocument.removeEventListener('pointerleave',this.#leave);this.#leave();}
  attributeChangedCallback(name:string,_old:string|null,value:string|null){
   if(this.#restore)return;
-  if(name==='aria-label'||name==='aria-hidden'){this.#render();return;}
+  if(name==='aria-label'||name==='aria-hidden'||name==='data-name'){this.#render();return;}
   if(name==='size'){
    const parsed=value===null?256:/^(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(value)?Number(value):NaN;
    this.#input('size',parsed,true);
@@ -119,17 +131,21 @@ export class LifeHashAvatar extends HTMLElement {
   });this.#ready.catch(()=>{});
  }
  #failure(kind:GenerationFailure['kind'],error:unknown){this.dispatchEvent(new CustomEvent<GenerationFailure>('generation-error',{detail:{kind,error:error instanceof Error?error:new Error(String(error))},bubbles:true,composed:true}));}
+ #label(){return new TextDecoder().decode(new TextEncoder().encode(`${this.getAttribute('aria-label')??this.dataset.name??this.#identity?.name??'Companion'}, ${STATE_LABELS[this.#state]}`));}
  #render(){
   this.style.setProperty('--avatar-size',`${this.#size}px`);this.setAttribute('data-motion',this.#state);
   if(!this.#identity){this.#root.innerHTML=`<style>${css}</style><div class="placeholder" part="placeholder">${this.#status==='failed'?'Avatar unavailable':'Preparing companion…'}</div>`;return;}
   // The shadow tree scopes static SVG identifiers independently per instance.
-  const svg=avatarSVG(this.#identity,{size:this.#size,label:new TextDecoder().decode(new TextEncoder().encode(this.getAttribute('aria-label')??this.#identity.name))});
+  const svg=avatarSVG(this.#identity,{size:this.#size,label:this.#label()});
   this.#root.innerHTML=`<style>${css}</style>${svg}`;
   this.#presentation();
   if(this.getAttribute('aria-hidden')==='true')this.#root.querySelector('svg')!.setAttribute('aria-hidden','true');
  }
  #presentation(){
   this.setAttribute('data-motion',this.#state);
+  const svg=this.#root.querySelector('svg');
+  svg?.setAttribute('aria-label',this.#label());
+  const title=svg?.querySelector('title');if(title)title.textContent=this.#label();
   const face=this.#root.querySelector('.face');if(!face)return;
   const expression=expressions[this.#state];
   const mouth=this.#root.querySelector('.mouth')!;
@@ -163,7 +179,7 @@ export class LifeHashAvatar extends HTMLElement {
   this.#root.querySelector('.gaze')?.setAttribute('transform',`translate(${x} ${y})`);
  };
  #leave=()=>{this.#root.querySelector('.gaze')?.removeAttribute('transform');};
- exportSVG(options:SVGOptions={}){if(!this.#identity)throw new Error('No resolved avatar is available.');return avatarSVG(this.#identity,options);}
+ exportSVG(options:SVGOptions={}){if(!this.#identity)throw new Error('No resolved avatar is available.');return avatarSVG(this.#identity,{label:this.dataset.name??this.#identity.name,...options});}
 }
 if(!customElements.get('lifehash-avatar'))customElements.define('lifehash-avatar',LifeHashAvatar);
 declare global {interface HTMLElementTagNameMap {'lifehash-avatar':LifeHashAvatar}}

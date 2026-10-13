@@ -1,7 +1,50 @@
 import {test,expect} from '@playwright/test';
+test('demo focuses on compact identity, visible activity and task integration',async({page})=>{
+ const requests:string[]=[];page.on('request',req=>requests.push(req.url()));
+ await page.goto('/?seed=byte%20%2F%20builder');await expect(page.locator('#download')).toBeEnabled();
+ await expect(page.locator('#add-audio')).toHaveCount(0);
+ await expect(page.locator('.voice-controls')).toHaveCount(0);
+ expect(requests.some(url=>/audio-panel|character-speech|\/api\/speech/.test(url))).toBe(false);
+ await expect(page.locator('#size-examples lifehash-avatar[size="24"]')).toHaveCount(1);
+ await page.getByRole('button',{name:'Thinking',exact:true}).click();
+ await expect(page.locator('#activity-status')).toHaveText('Working');
+ const label=await page.locator('#hero').evaluate(hero=>hero.shadowRoot!.querySelector('svg')!.getAttribute('aria-label'));
+ expect(label).toContain('Working');
+ await expect(page.locator('#sdk-task')).toContainText('await task()');
+ await page.getByRole('button',{name:'Error',exact:true}).click();
+ await expect(page.locator('#activity-status')).toHaveText('Failed');
+});
+test('random button updates the companion and code excerpt from a new seed',async({page})=>{
+ await page.goto('/');await expect(page.locator('#download')).toBeEnabled();
+ const oldSeed=await page.locator('#seed').inputValue();
+ await page.getByRole('button',{name:'Try a different seed'}).click();
+ const newSeed=await page.locator('#seed').inputValue();
+ expect(newSeed).not.toBe(oldSeed);
+ await expect(page.locator('#hero')).toHaveAttribute('seed',newSeed);
+ await expect(page.locator('#status')).toContainText('Ready');
+ await expect(page.locator('#sdk-markup')).toContainText(newSeed);
+ const name=await page.locator('#character-name').textContent();
+ await page.goto('/?'+new URLSearchParams({seed:newSeed}));
+ await expect(page.locator('#character-name')).toHaveText(name!);
+});
+test('restored demo retains nine expressions, four coats, SDK excerpts and kawaii names',async({page})=>{
+ await page.goto('/?seed=byte%20%2F%20builder');
+ await expect(page.locator('#character-name')).toHaveText('Momo');
+ await expect(page.locator('#hero')).toHaveAttribute('data-name','Momo');
+ await expect(page.locator('#sdk-markup')).toContainText('data-name="Momo"');
+ await expect(page.locator('#states button')).toHaveCount(9);
+ await expect(page.locator('.coat-example')).toHaveCount(4);
+ await expect(page.locator('#sdk-markup')).toContainText('byte / builder');
+ await page.getByRole('button',{name:'Curious',exact:true}).click();
+ await expect(page.locator('#character-name')).toHaveText('Momo');
+ await expect(page.locator('#sdk-markup')).toContainText('state="curious"');
+ await page.getByLabel('Your identity seed').fill('echo / reviewer');
+ await expect(page.locator('#character-name')).toHaveText('Rokuni');
+ await expect(page.locator('#hero')).toHaveAttribute('data-name','Rokuni');
+});
 test('TEST-014: keyboard controls, error announcement, download and responsive layout',async({page})=>{
  await page.goto('/');await expect(page.locator('#download')).toBeEnabled();await expect(page.locator('.friend')).toHaveCount(6);await expect(page.locator('.coat-example')).toHaveCount(4);
- const input=page.getByLabel('Your identity seed');await input.focus();await input.fill('keyboard:42');await expect(page.locator('#status')).toContainText('Ready');await page.keyboard.press('Tab');await expect(page.getByRole('button',{name:'Idle',exact:true})).toBeFocused();
+ const input=page.getByLabel('Your identity seed');await input.focus();await input.fill('keyboard:42');await expect(page.locator('#status')).toContainText('Ready');await page.keyboard.press('Tab');await expect(page.getByRole('button',{name:'Try a different seed',exact:true})).toBeFocused();await page.keyboard.press('Tab');await expect(page.getByRole('button',{name:'Idle',exact:true})).toBeFocused();
  await page.keyboard.press('Tab');await page.keyboard.press('Enter');await expect(page.getByRole('button',{name:'Thinking',exact:true})).toHaveAttribute('aria-pressed','true');
  const focusedOutline=await page.getByRole('button',{name:'Thinking',exact:true}).evaluate(e=>getComputedStyle(e).outlineStyle);expect(focusedOutline).toBe('solid');
  const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'Download neutral SVG'}).click()]);expect(download.suggestedFilename()).toMatch(/-avatar.svg$/);
